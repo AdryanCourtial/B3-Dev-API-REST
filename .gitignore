@@ -166,9 +166,9 @@ cython_debug/
 
 #Env
 
-./Lib
-./Script
-./Include
+/Lib
+/Scripts
+/Include
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
