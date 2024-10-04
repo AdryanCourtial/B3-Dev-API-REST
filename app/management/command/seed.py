@@ -19,3 +19,4 @@ class Command(BaseCommand):
         ]
         civilites = ['Monsieur', 'Madame', 'Autre']
         formats = ['Ebook', 'Audio', 'Physique']
+        states = ['En Stock', 'Epuisé', 'Reviend dans pas longtemps']
