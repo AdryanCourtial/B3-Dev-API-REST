@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import User
 from .serializer import UserSerializer
 
+
 @api_view(['GET'])
 def get_users(request):
     users = User.objects.all()
@@ -40,5 +41,4 @@ def user_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
     
