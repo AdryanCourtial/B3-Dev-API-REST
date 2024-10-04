@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from app.api.models import Categories, Languages, Civilites, Countries, Formats, States, Editors, Authors
+from api.models import Categories, Languages, Civilites, Countries, Formats, States, Editors, Authors, Books
+from datetime import date
 
 class Command(BaseCommand):
     help = 'Seed the database with initial data'
@@ -43,9 +44,9 @@ class Command(BaseCommand):
                 "name": "Hugo",
                 "firstname": "Victor",
                 "is_alive": False,
-                "birthday": "1802-02-26",
+                "birthday": '1802-02-26',
                 "civilite_id": 1,  # Exemple de civilité (Mr/Mrs/etc.)
-                "country_id": 1    # France
+                "country_id": 2    # France
             },
             {
                 "name": "Rowling",
@@ -96,7 +97,7 @@ class Command(BaseCommand):
                 "web_site": "https://www.bloomsbury.com",
                 "logo": "https://www.bloomsbury.com/logo.png",
                 "email": "info@bloomsbury.com",
-                "country_id": 2    # Royaume-Uni
+                "country_id": 2  # Royaume-Uni
             },
             {
                 "name": "Shinchosha",
@@ -104,7 +105,7 @@ class Command(BaseCommand):
                 "web_site": "https://www.shinchosha.co.jp",
                 "logo": "https://www.shinchosha.co.jp/logo.png",
                 "email": "contact@shinchosha.co.jp",
-                "country_id": 3    # Japon
+                "country_id": 3   # Japon
             },
             {
                 "name": "Secker & Warburg",
@@ -112,7 +113,7 @@ class Command(BaseCommand):
                 "web_site": "https://www.penguin.co.uk",
                 "logo": "https://www.penguin.co.uk/logo.png",
                 "email": "info@penguin.co.uk",
-                "country_id": 2    # Royaume-Uni
+                "country_id": 2   # Royaume-Uni
             }
         ]
 
@@ -178,3 +179,101 @@ class Command(BaseCommand):
                 "quantity": 120
             }
         ]        
+
+        for category_name in categories:
+                category, created = Categories.objects.get_or_create(name=category_name)
+                if created:
+                    self.stdout.write(self.style.SUCCESS(f'Category "{category_name}" created'))
+                else:
+                    self.stdout.write(self.style.WARNING(f'Category "{category_name}" already exists'))
+        
+
+        for language_name in languages:
+            language, created = Languages.objects.get_or_create(name=language_name)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Language "{language_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Language "{language_name}" already exists'))
+
+
+        for civilites_name in civilites:
+            civilite, created = Civilites.objects.get_or_create(name=civilites_name)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Civilites "{civilites_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Civilites "{civilites_name}" already exists'))
+
+
+        for format_name in formats:
+            format, created = Formats.objects.get_or_create(name=format_name)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Format "{format_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Format "{format_name}" already exists'))
+
+
+        for state_name in states:
+            state, created = States.objects.get_or_create(name=state_name)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'States "{state_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'States "{state_name}" already exists'))
+
+            
+        for country_name in countries:
+            country, created = Countries.objects.get_or_create(name=country_name)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Country "{country_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Country "{country_name}" already exists'))
+
+
+        for author_name in authors:
+            author, created = Authors.objects.get_or_create(
+                name=author_name["name"], 
+                firstname=author_name["firstname"], 
+                is_alive=author_name["is_alive"], 
+                birthday=author_name["birthday"], 
+                civilite_id=author_name["civilite_id"], 
+                country_id=author_name["country_id"] 
+            )
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Author "{author_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Author "{author_name}" already exists'))
+            
+        
+        for editor_name in editors:
+            editor, created = Editors.objects.get_or_create(
+                name=editor_name["name"],
+                adress=editor_name["adress"],
+                web_site=editor_name["web_site"],
+                logo=editor_name["logo"],
+                email=editor_name["email"],
+                country_id=editor_name["country_id"]                                    )
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Editor "{editor_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Editor "{editor_name}" already exists'))
+
+
+        for book_name in books:
+            book, created = Books.objects.get_or_create(
+                name=book_name["name"],
+                isbn=book_name["isbn"],
+                summary=book_name["summary"],
+                price=book_name["price"],
+                picture=book_name["picture"],
+                quantity=book_name["quantity"],
+                author_id=book_name["author_id"],
+                category_id=book_name["category_id"],
+                editor_id=book_name["editor_id"],
+                format_id=book_name["format_id"],
+                language_id=book_name['language_id'],
+                state_id=book_name["state_id"],
+                year_of_publication=book_name["year_of_publication"]
+            )
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Book "{book_name}" created'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Book "{book_name}" already exists'))
