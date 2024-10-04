@@ -116,7 +116,65 @@ class Command(BaseCommand):
             }
         ]
 
-        
-        
-
-        
+        books = [
+            {
+                "name": "Les Misérables",
+                "author_id": 1,  # Victor Hugo
+                "year_of_publication": "1862-01-01",
+                "isbn": 9781234567890,
+                "editor_id": 1,  # Gallimard
+                "language_id": 1,  # Français
+                "category_id": 1,  # Roman
+                "summary": "Un chef-d'œuvre de la littérature française, explorant la justice et la rédemption.",
+                "price": "19.99",
+                "picture": "https://example.com/les-miserables.jpg",
+                "state_id": 1,  # Neuf
+                "format_id": 1,  # Broché
+                "quantity": 100
+            },
+            {
+                "name": "Harry Potter and the Philosopher's Stone",
+                "author_id": 2,  # J.K. Rowling
+                "year_of_publication": "1997-06-26",
+                "isbn": 9780747532699,
+                "editor_id": 2,  # Bloomsbury
+                "language_id": 2,  # Anglais
+                "category_id": 2,  # Fantaisie
+                "summary": "Le premier roman de la série Harry Potter.",
+                "price": "25.99",
+                "picture": "https://example.com/harry-potter-1.jpg",
+                "state_id": 1,
+                "format_id": 1,
+                "quantity": 200
+            },
+            {
+                "name": "1984",
+                "author_id": 3,  # George Orwell
+                "year_of_publication": "1949-06-08",
+                "isbn": 9780451524935,
+                "editor_id": 4,  # Secker & Warburg
+                "language_id": 2,  # Anglais
+                "category_id": 3,  # Dystopie
+                "summary": "Un roman dystopique explorant la surveillance et le totalitarisme.",
+                "price": "14.99",
+                "picture": "https://example.com/1984.jpg",
+                "state_id": 1,
+                "format_id": 1,
+                "quantity": 150
+            },
+            {
+                "name": "Kafka on the Shore",
+                "author_id": 4,  # Haruki Murakami
+                "year_of_publication": "2002-09-12",
+                "isbn": 9781400079278,
+                "editor_id": 3,  # Shinchosha
+                "language_id": 3,  # Japonais
+                "category_id": 4,  # Fiction contemporaine
+                "summary": "Un roman mystérieux et onirique de Haruki Murakami.",
+                "price": "22.50",
+                "picture": "https://example.com/kafka-on-the-shore.jpg",
+                "state_id": 1,
+                "format_id": 1,
+                "quantity": 120
+            }
+        ]        
