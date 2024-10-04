@@ -17,3 +17,4 @@ class Command(BaseCommand):
             {'name': '북한'},
             {'name': 'Русский'},
         ]
+        civilites = ['Monsieur', 'Madame', 'Autre']
