@@ -18,3 +18,4 @@ class Command(BaseCommand):
             {'name': 'Русский'},
         ]
         civilites = ['Monsieur', 'Madame', 'Autre']
+        formats = ['Ebook', 'Audio', 'Physique']
