@@ -4,6 +4,8 @@ from rest_framework import status
 from .models import User, Book, Loan, ReturnHistory
 from .serializer import UserSerializer, BookSerializer, LoanSerializer
 from django.utils import timezone
+from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import permission_classes
 
 
 
@@ -55,6 +57,7 @@ def add_book(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
+@permission_classes([IsAdminUser])
 def borrow_book(request):
     serializer = LoanSerializer(data=request.data)
     if serializer.is_valid():
