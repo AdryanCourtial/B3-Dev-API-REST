@@ -22,9 +22,9 @@ class Command(BaseCommand):
         states = ['En Stock', 'Epuisé', 'Reviend dans pas longtemps']
         countries = [
             "France",
-            "Canada",
-            "Brazil",
+            "Royaume-Uni",
             "Japan",
+            "Brazil",
             "Australia",
             "Germany",
             "India",
@@ -37,3 +37,50 @@ class Command(BaseCommand):
             "Russia",
             "Argentina"
         ]
+
+        authors = [
+            {
+                "name": "Hugo",
+                "firstname": "Victor",
+                "is_alive": False,
+                "birthday": "1802-02-26",
+                "civilite_id": 1,  # Exemple de civilité (Mr/Mrs/etc.)
+                "country_id": 1    # France
+            },
+            {
+                "name": "Rowling",
+                "firstname": "J.K.",
+                "is_alive": True,
+                "birthday": "1965-07-31",
+                "civilite_id": 1,
+                "country_id": 2    # Royaume-Uni
+            },
+            {
+                "name": "Orwell",
+                "firstname": "George",
+                "is_alive": False,
+                "birthday": "1903-06-25",
+                "civilite_id": 1,
+                "country_id": 2    # Royaume-Uni
+            },
+            {
+                "name": "Murakami",
+                "firstname": "Haruki",
+                "is_alive": True,
+                "birthday": "1949-01-12",
+                "civilite_id": 1,
+                "country_id": 3    # Japon
+            },
+            {
+                "name": "Camus",
+                "firstname": "Albert",
+                "is_alive": False,
+                "birthday": "1913-11-07",
+                "civilite_id": 1,
+                "country_id": 1    # France
+            }
+        ]
+        
+        
+
+        
