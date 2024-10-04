@@ -80,6 +80,42 @@ class Command(BaseCommand):
                 "country_id": 1    # France
             }
         ]
+
+        editors = [
+            {
+                "name": "Gallimard",
+                "adress": "5 Rue Sébastien Bottin, Paris, France",
+                "web_site": "https://www.gallimard.fr",
+                "logo": "https://www.gallimard.fr/logo.png",
+                "email": "contact@gallimard.fr",
+                "country_id": 1    # France
+            },
+            {
+                "name": "Bloomsbury",
+                "adress": "50 Bedford Square, London, UK",
+                "web_site": "https://www.bloomsbury.com",
+                "logo": "https://www.bloomsbury.com/logo.png",
+                "email": "info@bloomsbury.com",
+                "country_id": 2    # Royaume-Uni
+            },
+            {
+                "name": "Shinchosha",
+                "adress": "71 Yotsuya, Shinjuku, Tokyo, Japan",
+                "web_site": "https://www.shinchosha.co.jp",
+                "logo": "https://www.shinchosha.co.jp/logo.png",
+                "email": "contact@shinchosha.co.jp",
+                "country_id": 3    # Japon
+            },
+            {
+                "name": "Secker & Warburg",
+                "adress": "20 Vauxhall Bridge Road, London, UK",
+                "web_site": "https://www.penguin.co.uk",
+                "logo": "https://www.penguin.co.uk/logo.png",
+                "email": "info@penguin.co.uk",
+                "country_id": 2    # Royaume-Uni
+            }
+        ]
+
         
         
 
