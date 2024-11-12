@@ -1,14 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Book, Loan, ReturnHistory
-from .serializer import UserSerializer, BookSerializer, LoanSerializer
+from .models import User, Book, Loan, ReturnHistory, Books
+from .serializer import UserSerializer, BookSerializer, LoanSerializer, BooksSerializer
 from django.utils import timezone
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.decorators import permission_classes
 
 from django.urls import reverse
-
 
 
 
@@ -54,9 +53,17 @@ def user_detail(request, pk):
     
 
 
+# @api_view(['POST'])
+# def add_book(request):
+#     serializer = BookSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def add_book(request):
-    serializer = BookSerializer(data=request.data)
+    serializer = BooksSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -67,7 +74,7 @@ def add_book(request):
 def borrow_book(request):
     serializer = LoanSerializer(data=request.data)
     if serializer.is_valid():
-        book = Book.objects.get(pk=request.data['book'])
+        book = Books.objects.get(pk=request.data['book'])
         if book.available:
             book.available = False
             book.save()
@@ -143,21 +150,35 @@ def get_user_loans(request, user_id):
 @permission_classes([AllowAny]) 
 def get_book_details(request, book_id):
     try:
-        book = Book.objects.get(id=book_id)
-        serializer = BookSerializer(book)
+        book = Books.objects.get(id=book_id)
+        serializer = BooksSerializer(book)
         return Response(serializer.data)
-    except Book.DoesNotExist:
+    except Books.DoesNotExist:
         return Response({'error': 'Book not found'}, status=404)
     
+
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def list_books(request):
+#     books = Book.objects.all()
+#     data = []
+#     for book in books:
+#         book_info = {
+#             'title': book.title,
+#             'available': book.available,
+#             'detail_url': request.build_absolute_uri(reverse('get_book_details', args=[book.id]))
+#         }
+#         data.append(book_info)
+#     return Response(data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def list_books(request):
-    books = Book.objects.all()
+    books = Books.objects.all()
     data = []
     for book in books:
         book_info = {
-            'title': book.title,
+            'name': book.name,
             'available': book.available,
             'detail_url': request.build_absolute_uri(reverse('get_book_details', args=[book.id]))
         }
