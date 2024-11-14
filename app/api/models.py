@@ -81,7 +81,6 @@ class Loan(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE)
     loan_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
-    return_processed = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -95,9 +94,3 @@ def update_book_on_loan_delete(sender, instance, **kwargs):
     book.save()
 
 
-class ReturnHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)
-    return_date = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return f"{self.user.username} returned {self.book.title} on {self.return_date}"
