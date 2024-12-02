@@ -21,7 +21,7 @@ urlpatterns = [
 
     path('languages/', get_languages, name='get_languages'),
 
-    path('civilites/', get_civilites, name='get_languages'),
+    path('civilites/', get_civilites, name='get_civilities'),
 
     path('countries/', get_countries, name='get_countries'),
 
