@@ -63,6 +63,7 @@ pip install djangorestframework
 Appliquez les migrations pour configurer la base de données :
 
 ```
+cd app
 python manage.py migrate
 ```
 
@@ -83,6 +84,8 @@ python manage.py createsuperuser
 Lancez le serveur local :
 
 ```
-cd app
-python manage.py runserver
+python manage.py start
 ```
+
+base_url : http://127.0.0.1:8000/api
+swagger_url : http://127.0.0.1:8000/swagger
