@@ -8,15 +8,15 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         categories = ['Roman', 'Science-Fiction', 'Fantasy', 'Thriller', 'Romance', 'Aventure', 'Drame', 'Horreur', 'Contes et Légendes', 'Dystopie', 'Historique', 'Biographie', 'Essaie', 'Mémoire', 'Science', 'Politique', 'Economie', 'BD', 'Manga']
         languages = [
-            {'name': 'French'},
-            {'name': 'English'},
-            {'name': 'Spanish'},
-            {'name': 'Deutch'},
-            {'name': 'Italiano'},
-            {'name': '中国人'},
-            {'name': '한국'},
-            {'name': '북한'},
-            {'name': 'Русский'},
+            'French',
+            'English',
+            'Spanish',
+            'Deutch',
+            'Italiano',
+            '中国人',
+            '한국',
+            '북한',
+            'Русский',
         ]
         civilites = ['Monsieur', 'Madame', 'Autre']
         formats = ['Ebook', 'Audio', 'Physique']
