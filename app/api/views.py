@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.decorators import permission_classes
 from django.db.models import Q
 from api.utils.filter import filterBooks
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+
 
 from django.urls import reverse
 
@@ -21,10 +24,27 @@ from django.urls import reverse
 @permission_classes([AllowAny])  
 def get_users(request):
     users = User.objects.all()
-    serialazer = UserSerializer(users, many=True)
-    return Response(serialazer.data)
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
  
 
+
+@swagger_auto_schema(
+    method='post',  # Spécifie que cette doc est pour la méthode POST
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'username': openapi.Schema(type=openapi.TYPE_STRING)
+        },
+        required=['username'],
+        description="Créer un nouvel utilisateur avec un nom d'utilisateur"
+    ),
+    responses={
+        201: 'Utilisateur créé avec succès',
+        400: 'Données invalides dans la requête',
+        401: 'Accès non autorisé',
+    }
+)
 @api_view(['POST'])
 @permission_classes([AllowAny]) 
 def create_user(request):
@@ -33,6 +53,8 @@ def create_user(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny]) 
@@ -55,7 +77,7 @@ def user_detail(request, pk):
 
     elif request.method == 'DELETE':
         user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "User has been deleted successfully."}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -106,19 +128,19 @@ def add_book(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def list_books(request):
-    books = Books.objects.all()
-    data = []
-    for book in books:
-        book_info = {
-            'name': book.name,
-            'available': book.available,
-            'detail_url': request.build_absolute_uri(reverse('get_book_details', args=[book.id]))
-        }
-        data.append(book_info)
-    return Response(data)
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def list_books(request):
+#     books = Books.objects.all()
+#     data = []
+#     for book in books:
+#         book_info = {
+#             'name': book.name,
+#             'available': book.available,
+#             'detail_url': request.build_absolute_uri(reverse('get_book_details', args=[book.id]))
+#         }
+#         data.append(book_info)
+#     return Response(data)
 
 
 
@@ -153,7 +175,7 @@ def delete_book(request, book_id):
     try:
         book = Books.objects.get(pk=book_id)
         book.delete()
-        return Response({'message': 'Book deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'Book deleted successfully'}, status=status.HTTP_200_OK)
     except Books.DoesNotExist:
         return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -165,7 +187,7 @@ def delete_book(request, book_id):
 ############################################################
 
 @api_view(['POST'])
-@permission_classes([IsAdminUser])
+@permission_classes([AllowAny])
 def borrow_book(request):
     serializer = LoanSerializer(data=request.data)
     if serializer.is_valid():
@@ -186,7 +208,7 @@ def borrow_book(request):
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAdminUser])
+@permission_classes([AllowAny])
 def return_book(request, pk):
     try:
         loan = Loan.objects.get(pk=pk)
@@ -206,12 +228,6 @@ def return_book(request, pk):
         return Response({'error': f'Loan with id {pk} not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny]) 
-def get_user_loans(request, user_id):
-    loans = Loan.objects.filter(user_id=user_id, return_processed=False)
-    serializer = LoanSerializer(loans, many=True)
-    return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny]) 
@@ -317,13 +333,12 @@ def list_books(request):
             return Response(books.data)
 
     else:
-        print(param_query)
         books = Books.objects.all()
         data = []
         for book in books:
             book_info = {
-                'title': book.name,
-                # 'available': book.available,
+                'name': book.name,
+                'available': book.available,
                 'detail_url': request.build_absolute_uri(reverse('get_book_details', args=[book.id]))
             }
             data.append(book_info)
