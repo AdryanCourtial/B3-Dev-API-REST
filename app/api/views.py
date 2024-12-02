@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Book, Loan, Books
-from .serializer import UserSerializer, BookSerializer, LoanSerializer, BooksSerializer
+from .models import User, Loan, Books
+from .serializer import UserSerializer, LoanSerializer, BooksSerializer
 from django.utils import timezone
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.decorators import permission_classes

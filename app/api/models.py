@@ -10,15 +10,6 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
-# Modèle livre simplifié
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    available = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.title
-    
-
 
 
 class Countries(models.Model):
