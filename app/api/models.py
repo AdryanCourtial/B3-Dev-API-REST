@@ -10,41 +10,7 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
-# Modèle livre simplifié
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    available = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.title
-    
-# Modèle prêt simplifié
-class Loan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    loan_date = models.DateField(auto_now_add=True)
-    return_date = models.DateField(null=True, blank=True)
-    return_processed = models.BooleanField(default=False)
-
-
-    def __str__(self):
-        return f"{self.user} borrowed {self.book}"
-
-
-
-@receiver(post_delete, sender=Loan)
-def update_book_on_loan_delete(sender, instance, **kwargs):
-    book = instance.book
-    book.available = True
-    book.save()
-
-
-class ReturnHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    return_date = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return f"{self.user.username} returned {self.book.title} on {self.return_date}"
 
 class Countries(models.Model):
     name = models.CharField(max_length=30)
@@ -97,3 +63,25 @@ class Books(models.Model):
     state = models.ForeignKey(States, on_delete=models.CASCADE)
     format = models.ForeignKey(Formats, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    available = models.BooleanField(default=True)
+
+
+# Modèle prêt simplifié
+class Loan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    loan_date = models.DateField(auto_now_add=True)
+    return_date = models.DateField(null=True, blank=True)
+
+
+    def __str__(self):
+        return f"{self.user} borrowed {self.book}"
+
+
+@receiver(post_delete, sender=Loan)
+def update_book_on_loan_delete(sender, instance, **kwargs):
+    book = instance.book
+    book.available = True
+    book.save()
+
+

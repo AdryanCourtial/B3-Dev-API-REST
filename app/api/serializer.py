@@ -6,17 +6,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-
 class BooksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Books
         fields = '__all__'
 
-
 class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loan
-        fields = ['user', 'book']
+        fields = '__all__'
     
 class LanguagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,7 +36,6 @@ class CategoriesSerializer(serializers.ModelSerializer):
         model = Categories
         fields = '__all__'
     
-
 class StatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = States
