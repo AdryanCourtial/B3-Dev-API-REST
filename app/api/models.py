@@ -87,7 +87,7 @@ class Books(models.Model):
     name = models.CharField(max_length=40)
     author = models.ForeignKey(Authors, on_delete=models.CASCADE)
     year_of_publication = models.TextField()
-    isbn = models.IntegerField(max_length=13)
+    isbn = models.IntegerField()
     editor = models.ForeignKey(Editors, on_delete=models.CASCADE)
     language = models.ForeignKey(Languages, on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
